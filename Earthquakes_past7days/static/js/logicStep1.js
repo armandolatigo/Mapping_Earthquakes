@@ -10,7 +10,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{
 
 
 // We create the dark view tile layer that will be an option for our map.
-let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/navigation-guidance-night-v4/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     accessToken: API_KEY
@@ -19,14 +19,14 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
 // Create a base layer that holds both maps
 
 let baseMaps = {
-    "Street View": streets,
-    "Satellite View": satelliteStreets
+    "Streets": streets,
+    "Satellite": satelliteStreets
 };
 
 // Create the map object with a center and zoom level.
 let map = L.map("mapid", {
-    center: [43.6777, -79.6248],
-    zoom: 11,
+    center: [39.5, -98.5],
+    zoom: 3,
     layers: [streets]
 })
 
@@ -34,7 +34,7 @@ let map = L.map("mapid", {
 L.control.layers(baseMaps).addTo(map);
 
 // Accessing the airport GeoJSON URL from GitHub Repo link
-let torontoHoods = "https://raw.githubusercontent.com/armandolatigo/Mapping_Earthquakes/Mapping_GeoJSON_Polygons/torontoNeighborhoods.json";
+let torontoHoods = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 
 // Grabbing our GeoJSON data (SKILL DRILL 13.5.6)
@@ -46,7 +46,7 @@ d3.json(torontoHoods).then(function(data) {
         lineWeight: 1,
         onEachFeature: function(feature, layer) {
              console.log(layer)
-             layer.bindPopup("<h2>" + "Neighborhood: " +  feature.properties.AREA_NAME + "</2>");  
+             layer.bindPopup("<h2>" + "An Earthquake happened here" + "</h2>");  
         }
     }).addTo(map)
 });
