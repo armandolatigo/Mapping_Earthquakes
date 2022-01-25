@@ -1,2 +1,6 @@
 # Ignore the config.js file.
 config.js
+
+#Ignore logic2 files
+logic2-1.js
+logic2.js
